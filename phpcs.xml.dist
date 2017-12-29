@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<ruleset name="Bulk Delete">
+	<description>Bulk Delete coding standard</description>
+
+	<!-- Show progress and sniff codes in all reports -->
+	<arg value="ps"/>
+
+	<file>./</file>
+
+ 	<!-- Non code directories -->
+ 	<exclude-pattern>vendor/*</exclude-pattern>
+
+	<!-- PHP Compatibility -->
+	<config name="testVersion" value="7.1-"/>
+	<rule ref="PHPCompatibility">
+	</rule>
+
+	<!--Code-->
+	<rule ref="WordPress-Extra">
+		<!-- Exclude suggestion to use esc_html__() instead of _e() -->
+		<exclude name="WordPress.XSS.EscapeOutput.UnsafePrintingFunction"/>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+	</rule>
+
+	<!--Docs-->
+	<rule ref="WordPress-Docs">
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+		<exclude name="Squiz.Commenting.FileComment.Missing"/>
+	</rule>
+
+	<!-- Properties -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="bulk-delete" />
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array" value="bd,BD,Bulk_Delete" />
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Variables.GlobalVariables">
+		<properties>
+			<property name="custom_test_class_whitelist" type="array" value="BWP_TestCase,BD_TestCase" />
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false" />
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.XSS.EscapeOutput">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array" value="__" />
+		</properties>
+	</rule>
+</ruleset>
