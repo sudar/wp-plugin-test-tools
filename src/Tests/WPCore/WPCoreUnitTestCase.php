@@ -3,11 +3,11 @@
 namespace BulkWP\Tests\WPCore;
 
 /**
- * TestCase base class for Bulk WP plugins.
+ * TestCase base class for writing Core unit tests for Bulk WP plugins.
  *
  * Adds lot of helper functions.
  */
-abstract class WPCoreTestCase extends \WP_UnitTestCase {
+abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 
 	/**
 	 * Helper method to get posts by tag.
