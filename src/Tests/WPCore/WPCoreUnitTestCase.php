@@ -75,4 +75,28 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 
 		return $wp_query->query( $args );
 	}
+
+	/**
+	 * Helper method to remove a role.
+	 *
+	 * The given role is removed only when it exists.
+	 *
+	 * @param string $role User Role.
+	 */
+	protected function remove_role( $role ) {
+		if ( get_role( $role ) ) {
+			remove_role( $role );
+		}
+	}
+
+	/**
+	 * Helper method to assign a role to User by User ID.
+	 *
+	 * @param int $user_id User ID.
+	 * @param string $role User Role.
+	 */
+	protected function assign_role_by_user_id( $user_id, $role ) {
+		$u = new \WP_User( $user_id );
+		$u->set_role( $role );
+	}
 }
