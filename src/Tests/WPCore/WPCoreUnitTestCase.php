@@ -10,6 +10,26 @@ namespace BulkWP\Tests\WPCore;
 abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 
 	/**
+	 * Helper method to get posts by status.
+	 *
+	 * @param string $status Post status.
+	 * @param string $post_type Post Type.
+	 *
+	 * @return array Posts.
+	 */
+	protected function get_posts_by_status( $status = 'publish', $post_type = 'post' ) {
+		$args = array(
+			'post_type'   => $post_type,
+			'nopaging'    => 'true',
+			'post_status' => $status,
+		);
+
+		$wp_query = new \WP_Query();
+
+		return $wp_query->query( $args );
+	}
+
+	/**
 	 * Helper method to get posts by tag.
 	 *
 	 * @param string $tag Tag name.
@@ -77,6 +97,17 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Get Pages by post status.
+	 *
+	 * @param string $status Post status.
+	 *
+	 * @return array Pages that belong to the post status.
+	 */
+	protected function get_pages_by_status( $status = 'publish' ) {
+		return $this->get_posts_by_status( $status, 'page' );
+	}
+
+	/**
 	 * Helper method to remove a role.
 	 *
 	 * The given role is removed only when it exists.
@@ -92,8 +123,8 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	/**
 	 * Helper method to assign a role to User by User ID.
 	 *
-	 * @param int $user_id User ID.
-	 * @param string $role User Role.
+	 * @param int    $user_id User ID.
+	 * @param string $role    User Role.
 	 */
 	protected function assign_role_by_user_id( $user_id, $role ) {
 		$u = new \WP_User( $user_id );
