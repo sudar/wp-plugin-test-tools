@@ -190,4 +190,26 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 
 		return $method;
 	}
+
+	/**
+	 * Set the value of a private/protected property.
+	 *
+	 * @param object $object        Instantiated object whos property we have to set value (Passed by Reference).
+	 * @param string $property_name Property name.
+	 * @param mixed  $value         Value to be set.
+	 *
+	 * @throws \ReflectionException Throws an exception if property is not present.
+	 */
+	protected function set_protected_property( &$object, $property_name, $value ) {
+		$reflection = new \ReflectionClass( get_class( $object ) );
+		$property   = $reflection->getProperty( $property_name );
+
+		// TODO: Split private and protected properties into different methods.
+		if ( ! $property->isProtected() && ! $property->isPrivate() ) {
+			$this->fail( $property_name . ' is not a private or protected property of ' . get_class( $object ) );
+		}
+
+		$property->setAccessible( true );
+		$property->setValue( $object, $value );
+	}
 }
