@@ -130,4 +130,64 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 		$u = new \WP_User( $user_id );
 		$u->set_role( $role );
 	}
+
+	/**
+	 * Call protected method of a class.
+	 *
+	 * @param object $object      Instantiated object that we will run method on (Passed by Reference).
+	 * @param string $method_name Method name to call.
+	 * @param array  $parameters  Array of parameters to pass into method.
+	 *
+	 * @return mixed Method return.
+	 * @throws \ReflectionException Throws an exception if method is not present.
+	 */
+	protected function invoke_protected_method( &$object, $method_name, array $parameters = array() ) {
+		$method = $this->get_method_by_reflection( $object, $method_name );
+
+		if ( ! $method->isProtected() ) {
+			$this->fail( $method_name . ' is not a protected method of ' . get_class( $object ) );
+		}
+
+		$method->setAccessible( true );
+
+		return $method->invokeArgs( $object, $parameters );
+	}
+
+	/**
+	 * Call private method of a class.
+	 *
+	 * @param object $object      Instantiated object that we will run method on (Passed by Reference).
+	 * @param string $method_name Method name to call.
+	 * @param array  $parameters  Array of parameters to pass into method.
+	 *
+	 * @return mixed Method return.
+	 * @throws \ReflectionException Throws an exception if method is not present.
+	 */
+	protected function invoke_private_method( &$object, $method_name, array $parameters = array() ) {
+		$method = $this->get_method_by_reflection( $object, $method_name );
+
+		if ( ! $method->isPrivate() ) {
+			$this->fail( $method_name . ' is not a private method of ' . get_class( $object ) );
+		}
+
+		$method->setAccessible( true );
+
+		return $method->invokeArgs( $object, $parameters );
+	}
+
+	/**
+	 * Get the method of an object using reflection.
+	 *
+	 * @param object $object      Instantiated object that we will run method on (Passed by Reference).
+	 * @param string $method_name Method name to call.
+	 *
+	 * @return \ReflectionMethod Method.
+	 * @throws \ReflectionException Throws an exception if method is not present.
+	 */
+	protected function get_method_by_reflection( &$object, $method_name ) {
+		$reflection = new \ReflectionClass( get_class( $object ) );
+		$method     = $reflection->getMethod( $method_name );
+
+		return $method;
+	}
 }
