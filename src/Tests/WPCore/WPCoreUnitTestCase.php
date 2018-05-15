@@ -52,14 +52,15 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	/**
 	 * Helper method to get posts by category.
 	 *
-	 * @param string $cat Category name.
+	 * @param string $cat       Category name.
+	 * @param string $post_type Post Type. Optional. Default 'Post'
 	 *
 	 * @return array Posts that belong to that category.
 	 */
-	protected function get_posts_by_category( $cat ) {
+	protected function get_posts_by_category( $cat, $post_type = 'post' ) {
 		$args = array(
 			'category__in' => array( $cat ),
-			'post_type'    => 'post',
+			'post_type'    => $post_type,
 			'nopaging'     => 'true',
 			'post_status'  => 'publish',
 		);
