@@ -98,6 +98,24 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Helper method to get posts by post type.
+	 *
+	 * @param string $post_type Post Type.
+	 *
+	 * @return array Posts that belong to the post type.
+	 */
+	protected function get_posts_by_post_type( $post_type = 'post' ) {
+		$args = array(
+			'post_type' => $post_type,
+			'nopaging'  => 'true',
+		);
+
+		$wp_query = new \WP_Query();
+
+		return $wp_query->query( $args );
+	}
+
+	/**
 	 * Get Pages by post status.
 	 *
 	 * @param string $status Post status.
