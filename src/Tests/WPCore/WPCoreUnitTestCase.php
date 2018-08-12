@@ -127,6 +127,32 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Check if a given taxonomy is a default taxonomy or not.
+	 *
+	 * @param string $taxonomy Taxonomy name.
+	 *
+	 * @return bool True if $taxonomy is a default Taxonomy, False otherwise.
+	 */
+	protected function is_default_taxonomy( $taxonomy ) {
+		$default_taxonomies = array( 'category', 'post_tag', 'link_category', 'post_format' );
+
+		return in_array( $taxonomy, $default_taxonomies, true );
+	}
+
+	/**
+	 * Check if a given post type is a default post type or not.
+	 *
+	 * @param string $post_type Post Type name.
+	 *
+	 * @return bool True if $post_type is a default Post Type, False otherwise.
+	 */
+	protected function is_default_post_type( $post_type ) {
+		$default_post_types = array( 'post', 'page' );
+
+		return in_array( $post_type, $default_post_types, true );
+	}
+
+	/**
 	 * Helper method to remove a role.
 	 *
 	 * The given role is removed only when it exists.
