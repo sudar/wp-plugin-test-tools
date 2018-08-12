@@ -153,6 +153,28 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Register post type and taxonomy.
+	 *
+	 * Registers post type and taxonomy only if needed and skips the registration call for built-in taxonomies.
+	 *
+	 * @param string $post_type Post type.
+	 * @param string $taxonomy Taxonomy.
+	 */
+	protected function register_post_type_and_taxonomy( $post_type, $taxonomy ) {
+		if ( ! $this->is_default_post_type( $post_type ) ) {
+			register_post_type( $post_type );
+		}
+
+		if ( ! $this->is_default_taxonomy( $taxonomy ) ) {
+			register_taxonomy( $taxonomy, $post_type );
+		}
+
+		if ( ! $this->is_default_post_type( $post_type ) || ! $this->is_default_taxonomy( $taxonomy ) ) {
+			register_taxonomy_for_object_type( $taxonomy, $post_type );
+		}
+	}
+
+	/**
 	 * Helper method to remove a role.
 	 *
 	 * The given role is removed only when it exists.
