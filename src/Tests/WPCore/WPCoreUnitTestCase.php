@@ -20,9 +20,10 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	protected function get_posts_by_status( $status = 'publish', $post_type = 'post' ) {
 		$args = array(
 			'post_type'   => $post_type,
-			'nopaging'    => 'true',
 			'post_status' => $status,
 		);
+
+		$args = wp_parse_args( $args, $this->get_default_wp_query_args() );
 
 		$wp_query = new \WP_Query();
 
@@ -40,9 +41,10 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 		$args = array(
 			'tag__in'     => array( $tag ),
 			'post_type'   => 'post',
-			'nopaging'    => 'true',
 			'post_status' => 'publish',
 		);
+
+		$args = wp_parse_args( $args, $this->get_default_wp_query_args() );
 
 		$wp_query = new \WP_Query();
 
@@ -61,9 +63,10 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 		$args = array(
 			'category__in' => array( $cat ),
 			'post_type'    => $post_type,
-			'nopaging'     => 'true',
 			'post_status'  => 'publish',
 		);
+
+		$args = wp_parse_args( $args, $this->get_default_wp_query_args() );
 
 		$wp_query = new \WP_Query();
 
@@ -89,8 +92,9 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 				),
 			),
 			'post_type' => $post_type,
-			'nopaging'  => 'true',
 		);
+
+		$args = wp_parse_args( $args, $this->get_default_wp_query_args() );
 
 		$wp_query = new \WP_Query();
 
@@ -107,8 +111,9 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	protected function get_posts_by_post_type( $post_type = 'post' ) {
 		$args = array(
 			'post_type' => $post_type,
-			'nopaging'  => 'true',
 		);
+
+		$args = wp_parse_args( $args, $this->get_default_wp_query_args() );
 
 		$wp_query = new \WP_Query();
 
@@ -278,5 +283,17 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 
 		$property->setAccessible( true );
 		$property->setValue( $object, $value );
+	}
+
+	/**
+	 * Get the default query args.
+	 *
+	 * @return array List of default query args.
+	 */
+	protected function get_default_wp_query_args() {
+		return array(
+			'nopaging'            => true,
+			'ignore_sticky_posts' => true,
+		);
 	}
 }
