@@ -132,6 +132,13 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Get the list of sticky post ids.
+	 */
+	protected function get_sticky_post_ids() {
+		return get_option( 'sticky_posts' );
+	}
+
+	/**
 	 * Check if a given taxonomy is a default taxonomy or not.
 	 *
 	 * @param string $taxonomy Taxonomy name.
