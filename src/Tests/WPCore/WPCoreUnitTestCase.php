@@ -173,9 +173,7 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	 * @param string $taxonomy Taxonomy.
 	 */
 	protected function register_post_type_and_taxonomy( $post_type, $taxonomy ) {
-		if ( ! $this->is_default_post_type( $post_type ) ) {
-			register_post_type( $post_type );
-		}
+		$this->register_post_type( $post_type );
 
 		if ( ! $this->is_default_taxonomy( $taxonomy ) ) {
 			register_taxonomy( $taxonomy, $post_type );
@@ -183,6 +181,17 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 
 		if ( ! $this->is_default_post_type( $post_type ) || ! $this->is_default_taxonomy( $taxonomy ) ) {
 			register_taxonomy_for_object_type( $taxonomy, $post_type );
+		}
+	}
+
+	/**
+	 * Register post type if needed.
+	 *
+	 * @param string $post_type Post type.
+	 */
+	protected function register_post_type( $post_type ) {
+		if ( ! $this->is_default_post_type( $post_type ) ) {
+			register_post_type( $post_type );
 		}
 	}
 
