@@ -220,6 +220,20 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Log-in a specific user.
+	 *
+	 * @param int $user_id User ID.
+	 */
+	protected function login_user( $user_id ) {
+		$user = get_user_by( 'id', $user_id );
+
+		wp_set_current_user( $user_id );
+		wp_set_auth_cookie( $user_id );
+
+		do_action( 'wp_login', $user->user_login );
+	}
+
+	/**
 	 * Call protected method of a class.
 	 *
 	 * @param object $object      Instantiated object that we will run method on (Passed by Reference).
