@@ -15,6 +15,12 @@ if ( ! function_exists( 'plugin_dir_url' ) ) {
 	}
 }
 
+if ( ! function_exists( 'is_admin' ) ) {
+	function is_admin() {
+		return \WP_Mock\Handler::predefined_return_function_helper( __FUNCTION__, func_get_args() );
+	}
+}
+
 if ( ! function_exists( 'plugin_dir_path' ) ) {
 	/**
 	 * Get the filesystem directory path (with trailing slash) for the plugin __FILE__ passed in.
