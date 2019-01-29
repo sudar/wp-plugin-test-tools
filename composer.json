@@ -1,21 +1,24 @@
 {
-    "name": "sudar/wp-plugin-test-tools",
-    "description": "Test tools for writing tests for WordPress plugin",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Sudar Muthu",
-            "homepage": "https://sudarmuthu.com"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/sudar/wp-plugin-test-tools/issues"
-    },
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "BulkWP\\": "src/"
-        }
+  "name": "sudar/wp-plugin-test-tools",
+  "description": "Test tools for writing tests for WordPress plugin",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sudar Muthu",
+      "homepage": "https://sudarmuthu.com"
     }
+  ],
+  "support": {
+    "issues": "https://github.com/sudar/wp-plugin-test-tools/issues"
+  },
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "BulkWP\\": "src/"
+    },
+    "files": [
+      "src/Tests/WPCore/bootstrap.php"
+    ]
+  }
 }
