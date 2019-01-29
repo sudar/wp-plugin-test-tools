@@ -38,9 +38,7 @@ function load_plugins_for_testing( $bd_plugins_to_load ) {
 	 */
 	tests_add_filter(
 		'muplugins_loaded',
-		function () {
-			global $bd_plugins_to_load;
-
+		function () use ( $bd_plugins_to_load ) {
 			foreach ( $bd_plugins_to_load as $plugin ) {
 				require_once $plugin;
 			}
