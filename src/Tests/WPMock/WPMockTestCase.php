@@ -21,7 +21,7 @@ abstract class WPMockTestCase extends TestCase {
 	/**
 	 * Include needed files during setup.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		if ( ! empty( $this->test_files ) && defined( 'PLUGIN_ROOT' ) ) {
 			foreach ( $this->test_files as $file ) {
 				if ( file_exists( PLUGIN_ROOT . $file ) ) {
