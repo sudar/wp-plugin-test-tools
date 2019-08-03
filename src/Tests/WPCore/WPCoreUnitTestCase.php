@@ -2,12 +2,16 @@
 
 namespace BulkWP\Tests\WPCore;
 
+use BulkWP\Tests\WPCore\Helpers\PostHelpers;
+
 /**
  * TestCase base class for writing Core unit tests for Bulk WP plugins.
  *
  * Adds lot of helper functions.
  */
 abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
+
+	use PostHelpers;
 
 	/**
 	 * Helper method to get posts by status.
@@ -313,17 +317,5 @@ abstract class WPCoreUnitTestCase extends \WP_UnitTestCase {
 
 		$property->setAccessible( true );
 		$property->setValue( $object, $value );
-	}
-
-	/**
-	 * Get the default query args.
-	 *
-	 * @return array List of default query args.
-	 */
-	protected function get_default_wp_query_args() {
-		return array(
-			'nopaging'            => true,
-			'ignore_sticky_posts' => true,
-		);
 	}
 }
