@@ -49,5 +49,6 @@ function load_plugins_for_testing( $bd_plugins_to_load ) {
 	require $_tests_dir . '/includes/bootstrap.php';
 
 	// Load BulkWP test tools.
+	require_once dirname( __FILE__ ) . '/Helpers/PostHelpers.php';
 	require_once dirname( __FILE__ ) . '/WPCoreUnitTestCase.php';
 }
